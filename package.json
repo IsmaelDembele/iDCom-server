@@ -1,0 +1,17 @@
+{
+  "name": "idcommerce-server",
+  "version": "1.0.0",
+  "description": "back end of idCom project",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "Ismael Dembele",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.7",
+    "uuid": "^8.3.2"
+  }
+}
