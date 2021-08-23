@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require("uuid");
+// const { v4: uuidv4 } = require("uuid");
 
 //sending data to server
 // const handleClick = e => {
@@ -13,7 +13,7 @@ const { v4: uuidv4 } = require("uuid");
 
 // process.env.PUBLIC_URL
 
-const data = [
+export const data = [
   {
     id: uuidv4(),
     type: "electronics",
@@ -110,10 +110,8 @@ const data = [
     name: "SAMSUNG 65-Inch Class Frame Series",
     price: "$1599.99",
   },
-
-  // { id: uuidv4(), title: "homes" },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "homes",
     url: "/products/homes/home01/home1.jpg",
     url2: "/products/homes/home01/home2.jpg",
@@ -123,7 +121,7 @@ const data = [
       "Silicone Kitchen Cooking Utensil Set, EAGMAK 16PCS Kitchen Utensils Spatula Set with Stainless Steel Stand for Nonstick Cookware, BPA Free Non-Toxic Cooking Utensils, Kitchen Tools Gift (Mint Green) : Food Grade Safe Silicone - Made of food-grade silicone, BPA-free, very safe to use in any type of food. This silicone cooking utensils does not react with food or beverages, or produce any hazardous fumes, you don’t have to worry about the health of your families. And it will probably last longer than the other plastic kitchen utensils. ",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "homes",
     url2: "/products/homes/home02/home1.jpg",
     url: "/products/homes/home02/home2.jpg",
@@ -135,7 +133,7 @@ const data = [
       "superior Quality Tool Rack Holds Mops, Brooms, or Sports Equipment and Storage Tool Rack Storage & Organization.",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "homes",
     url: "/products/homes/home03/home1.jpg",
     url2: "/products/homes/home03/home2.jpg",
@@ -146,7 +144,7 @@ const data = [
       "Get great-tasting water without the waste; by switching to Brita, you can save money and replace 1,800 single-use plastic water bottles a year.",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "homes",
     url: "/products/homes/home04/home1.jpg",
     url2: "/products/homes/home04/home2.jpg",
@@ -157,7 +155,7 @@ const data = [
       "[ELIMINATE CLUTTER] — Instantly free counter and cabinet space — Save the time and hassle of searching through cabinets for desired ingredients and products — Quickly view and neatly arrange items in one place.",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "homes",
     url: "/products/homes/home05/home1.jpg",
     url2: "/products/homes/home05/home2.jpg",
@@ -170,7 +168,7 @@ const data = [
       Dimensions in inches: 7.75" L x 7.75" W x 48.5".`,
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "homes",
     url2: "/products/homes/home06/home1.jpg",
     url: "/products/homes/home06/home2.jpg",
@@ -182,7 +180,7 @@ const data = [
   },
 
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "homes",
     url: "/products/homes/home07/home1.jpg",
     url2: "/products/homes/home07/home2.jpg",
@@ -193,7 +191,7 @@ const data = [
   },
 
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "homes",
     url: "/products/homes/home08/home1.jpg",
     url2: "/products/homes/home08/home2.jpg",
@@ -204,7 +202,7 @@ const data = [
       '⚡ADJUSTABLE DESIGN : Our expandable shelf organizer extends in WIDTH, HEIGHT, and DEPTH from 16"W x 10"H x 10"D to 20"W x 13"H x 14"D giving you the ultimate flexibilty for your needs. Unlike other undersink organizers our design allows you to rotate your under sink kitchen storage organizer 360 degrees to fit around your plumbing best. ',
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "homes",
     url: "/products/homes/home09/home1.jpg",
     url2: "/products/homes/home09/home2.jpg",
@@ -215,7 +213,7 @@ const data = [
       "Bartender Kit with Rotating Stand Cocktail shaker set, 360° rotating turntable stand carefully designed to keep your barware tools scratch-safe, For each specific tool, The bracket has a fixed position and a dent in the corresponding position. Keep your bar tidy and avoid clutter and lost tools. ",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "homes",
     url: "/products/homes/home10/home1.jpg",
     url2: "/products/homes/home10/home2.jpg",
@@ -226,7 +224,7 @@ const data = [
   },
   ///////////////////////////////////////////////
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "books",
     url: "/products/books/book01/book1.jpg",
     name: "The Psychology of Money",
@@ -236,7 +234,7 @@ const data = [
     author: "Morgan Housel",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "books",
     url: "/products/books/book02/book1.jpg",
     name: "The Basics of Bitcoins and Blockchains",
@@ -246,7 +244,7 @@ const data = [
     author: "Antony Lewis",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "books",
     url: "/products/books/book03/book1.jpg",
     name: "Man's Search for Meaning",
@@ -256,7 +254,7 @@ const data = [
       "Man's Search for Meaning: A book for finding purpose and strength in times of great despair, the international best-seller is still just as relevant today as when it was first published.",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "books",
     url: "/products/books/book04/book1.jpg",
     name: "Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future ",
@@ -266,7 +264,7 @@ const data = [
       "In the spirit of Steve Jobs and Moneyball, Elon Musk is both an illuminating and authorized look at the extraordinary life of one of Silicon Valley's most exciting, unpredictable, and ambitious entrepreneurs - a real-life Tony Stark - and a fascinating exploration of the renewal of American invention and its new makers. ",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "books",
     url: "/products/books/book06/book1.jpg",
     name: "R Data Structures and Algorithms",
@@ -276,7 +274,7 @@ const data = [
       "R Data Structures and Algorithms : See how to use data structures such as arrays, stacks, trees, lists, and graphs through real-world examples",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "books",
     url: "/products/books/book05/book1.jpg",
 
@@ -287,7 +285,7 @@ const data = [
     author: "Steven S. Skiena ",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "books",
     url: "/products/books/book07/book1.jpg",
     name: "Python Data Science Handbook: Essential Tools for Working with Data ",
@@ -297,7 +295,7 @@ const data = [
       "Python Data Science Handbook: Essential Tools for Working with Data: For many researchers, Python is a first-class tool mainly because of its libraries for storing, manipulating, and gaining insight from data. Several resources exist for individual pieces of this data science stack, but only with the Python Data Science Handbook do you get them all—IPython, NumPy, Pandas, Matplotlib, Scikit-Learn, and other related tools.",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "books",
     url: "/products/books/book08/book1.jpg",
     name: "The Art of War",
@@ -307,7 +305,7 @@ const data = [
       "The Art of War : Sun-Tzu is a landmark translation of the Chinese classic that is without a doubt one of the most important books of all time. Popularly known as The Art of War, Sun-Tzu is one of the leading books on strategic thinking ever written. While other books on strategy, wisdom, and philosophy come and go, both leaders and gentle contemplators alike have embraced the writings of Sun-tzu.",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "books",
     url: "/products/books/book09/book1.jpg",
     name: "The Prince",
@@ -317,7 +315,7 @@ const data = [
       "The Prince : A new, beautifully laid-out, easy-to-read pocket edition of Niccolò Machiavelli's The Prince, based on Luigi Ricci's highly-readable 1921 translation.  The Prince is one of the most influential and important early works of modern philosophy and political theory, essential reading for anyone who wants to understand the politics of power, with applicable lessons and cautionary tales for life, government, business, international and foreign affairs, and management. ",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "books",
     url: "/products/books/book10/book1.jpg",
     name: "Extraterrestrial: The First Sign of Intelligent Life Beyond Earth",
@@ -329,7 +327,7 @@ const data = [
   },
   //////////////////////////////////////
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "fashion",
     url: "/products/fashion/fashion03/fashion1.jpg",
     url2: "/products/fashion/fashion03/fashion2.jpg",
@@ -342,7 +340,7 @@ const data = [
       "Hand Wash ",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "fashion",
     url: "/products/fashion/fashion04/fashion1.jpg",
     url2: "/products/fashion/fashion04/fashion2.jpg",
@@ -353,7 +351,7 @@ const data = [
     GENUINE LEATHER: This Levi's genuine leather belt is a wardrobe essential for any man. The soft touch leather, grommet details, and beveled edges make it a unique elevated belt. Dress up your favorite pair of jeans with this Levi's leather 1.5" wide belt. `,
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "fashion",
     url: "/products/fashion/fashion05/fashion1.jpg",
     url2: "/products/fashion/fashion05/fashion2.jpg",
@@ -366,7 +364,7 @@ const data = [
     The advantage of the Calvin Klein Slim Fit Suit Separate is the ability to customize your jacket and pant size. Select your sizes and add them to the cart separately. `,
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "fashion",
     url: "/products/fashion/fashion06/fashion1.jpg",
     url2: "/products/fashion/fashion06/fashion2.jpg",
@@ -382,7 +380,7 @@ const data = [
     Double vented`,
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "fashion",
     url: "/products/fashion/fashion07/fashion1.jpg",
     url2: "/products/fashion/fashion07/fashion2.jpg",
@@ -394,7 +392,7 @@ const data = [
     Pockets: 1 zip`,
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "fashion",
     url: "/products/fashion/fashion08/fashion1.jpg",
     url2: "/products/fashion/fashion08/fashion2.jpg",
@@ -405,7 +403,7 @@ const data = [
     This embossed leather crossbody features 1 zipper pocket, 1 back slide pocket with magnetic snap and an adjustable and detachable crossbody strap. `,
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "fashion",
     url: "/products/fashion/fashion09/fashion1.jpg",
     url2: "/products/fashion/fashion09/fashion2.jpg",
@@ -416,7 +414,7 @@ const data = [
     𝗙𝗨𝗡𝗖𝗧𝗜𝗢𝗡𝗔𝗟 & 𝗦𝗟𝗜𝗠 – Travando’s Wallet offers 11 card pockets The slim wallet is ideal for carrying business cards, credit and debit cards, bills etc.. The outside notch allows you to push out the cards easily. `,
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "fashion",
     url: "/products/fashion/fashion10/fashion1.jpg",
     url2: "/products/fashion/fashion10/fashion2.jpg",
@@ -426,7 +424,7 @@ const data = [
     Slim and Compact: The thin wallet measures 4.35x3.5x0.75 inches to perfectly fit your front pocket. It is small, compact and lightweight, yet it fits a lot more than it shows. `,
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "fashion",
     url: "/products/fashion/fashion01/fashion1.jpg",
     url2: "/products/fashion/fashion01/fashion2.jpg",
@@ -440,7 +438,7 @@ const data = [
       "Shaft measures approximately 6-12 inches from arch.",
   },
   {
-    id: uuidv4(),
+    // id: uuidv4(),
     type: "fashion",
     url: "/products/fashion/fashion02/fashion1.jpg",
     url2: "/products/fashion/fashion02/fashion2.jpg",
@@ -449,5 +447,3 @@ const data = [
     description: "Clarks Men's Tilden Cap Oxford Shoe" + "100% Leather",
   },
 ];
-
-module.exports = { data };
