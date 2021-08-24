@@ -15,7 +15,6 @@
 
 export const data = [
   {
-    id: uuidv4(),
     type: "electronics",
     url: "/products/electronics/electronics01/electronic1.jpg",
     url2: "/products/electronics/electronics01/electronic2.jpg",
@@ -25,7 +24,6 @@ export const data = [
       "ASUS TUF Gaming F17 Gaming Laptop, 17.3” 144Hz Full HD IPS-Type, Intel Core i7-11800H Processor, GeForce RTX 3050 Ti, 16GB DDR4, 512GB PCIe SSD, Gigabit Wi-Fi 6, Windows 10 Home, TUF706HE-DS74.",
   },
   {
-    id: uuidv4(),
     type: "electronics",
     url: "/products/electronics/electronics02/electronic1.jpg",
     url2: "/products/electronics/electronics02/electronic2.jpg",
@@ -35,7 +33,6 @@ export const data = [
     price: "$2779.85",
   },
   {
-    id: uuidv4(),
     type: "electronics",
     url: "/products/electronics/electronics03/electronic1.jpg",
     url2: "/products/electronics/electronics03/electronic2.jpg",
@@ -45,7 +42,6 @@ export const data = [
     price: "$1948.99",
   },
   {
-    id: uuidv4(),
     type: "electronics",
     url: "/products/electronics/electronics04/electronic1.jpg",
     url2: "/products/electronics/electronics04/electronic2.jpg",
@@ -54,7 +50,6 @@ export const data = [
     price: "$600.00",
   },
   {
-    id: uuidv4(),
     type: "electronics",
     url: "/products/electronics/electronics05/electronic1.jpg",
     url2: "/products/electronics/electronics05/electronic2.jpg",
@@ -63,7 +58,6 @@ export const data = [
     price: "$1340.00",
   },
   {
-    id: uuidv4(),
     type: "electronics",
     url: "/products/electronics/electronics06/electronic1.jpg",
     url2: "/products/electronics/electronics06/electronic2.jpg",
@@ -73,7 +67,6 @@ export const data = [
     price: "$949.00",
   },
   {
-    id: uuidv4(),
     type: "electronics",
     url: "/products/electronics/electronics07/electronic1.jpg",
     url2: "/products/electronics/electronics07/electronic2.jpg",
@@ -82,7 +75,6 @@ export const data = [
     price: "$999.00",
   },
   {
-    id: uuidv4(),
     type: "electronics",
     url: "/products/electronics/electronics08/electronic1.jpg",
     url2: "/products/electronics/electronics08/electronic2.jpg",
@@ -92,7 +84,6 @@ export const data = [
     name: "SAMSUNG Galaxy Tab 12.4 inch",
   },
   {
-    id: uuidv4(),
     type: "electronics",
     url: "/products/electronics/electronics09/electronic1.jpg",
     url2: "/products/electronics/electronics09/electronic2.jpg",
@@ -101,7 +92,6 @@ export const data = [
     price: "$1200.00",
   },
   {
-    id: uuidv4(),
     type: "electronics",
     url: "/products/electronics/electronics10/electronic1.jpg",
     url2: "/products/electronics/electronics10/electronic2.jpg",
