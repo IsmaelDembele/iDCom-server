@@ -2,11 +2,49 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../model/users");
+const funct = require("../Helper/functions");
+/*
+get the last user id
+let id = '',
+const lastUser = await User.findOne().sort('-created_at').exec(function(err, post) { 
+if(err){
+console.log(err)
+  return;
+ });
+verify if the user have 
+if(!lastUser){
+  id = 'A-0000001';
+}else{
+  id = generateID(lastUser.userID);
+}
+
+*/
 
 router.post("/register", async (req, res, next) => {
   console.log(req.body);
   const { fullname, email, password } = req.body;
   let pwd = "";
+  let userID = "";
+  let lastUser ="";
+
+  //generating the Account UserID
+  //getting the last user created
+  try {
+    lastUser = await User.find().sort({created_at: -1});
+  } catch (error) {
+    res.send('error')
+    return;
+  }
+
+console.log();
+
+    if(!lastUser){
+      userID = 'A-0000001';
+    }else{
+      userID = funct.generateID(lastUser[0].userID);
+    }
+    
+
 
   try {
     pwd = await bcrypt.hash(password, 10);
@@ -20,6 +58,7 @@ router.post("/register", async (req, res, next) => {
       name: fullname,
       email: email,
       password: pwd,
+      userID: userID,
     });
 
     if (!_user) {
@@ -38,8 +77,8 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-router.get("/sign", async(req,res,next)=>{
-    res.send(req.session.isLoggedIn === true);// to send a boolean value
+router.get("/sign", async (req, res, next) => {
+  res.send(req.session.isLoggedIn === true); // to send a boolean value
 });
 
 router.post("/sign", async (req, res, next) => {
@@ -72,5 +111,28 @@ router.post("/sign", async (req, res, next) => {
     res.send("error");
   }
 });
+
+router.post("/sign-out", (req, res, next) => {
+  req.session.destroy(err => {
+    if (err) return res.send("error");
+    else {
+      console.log("user is logged out");
+      res.send("OK");
+    }
+  });
+});
+
+router.get("/account",(req,res,next)=>{
+  if(!req.session.isLoggedIn){
+    return res.send('error');
+  }else{
+
+    return res.send({
+      userID: req.session.user.userID,
+      name: req.session.user.name,
+      email: req.session.user.email,
+    });
+  }
+})
 
 module.exports = router;
