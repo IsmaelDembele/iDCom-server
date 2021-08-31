@@ -1,19 +1,31 @@
-import express from "express";
-import cors from "cors";
-// import {data} from "./data.js";
-import mongoose from "mongoose";
-import { Product } from "./model/products.js";
-import { User } from "./model/users.js";
-import bcrypt from "bcryptjs";
+require("dotenv").config();
+const express = require("express");
+const session = require("express-session");
+const cors = require("cors");
+// require {data} = "./data.js";
+const mongoose = require("mongoose");
+const Product = require("./model/products");
+const User = require("./model/users");
+
+// const jwt = require("jsonwebtoken");
+const MongoDBStore = require("connect-mongodb-session")(session);
+
+const authRoute = require("./routes/auth");
 
 const app = express();
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 5000;
+const MONGO_URI = "mongodb://localhost:27017/idcomdb";
 
-mongoose.connect("mongodb://localhost:27017/idcomdb", {
+mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -27,43 +39,41 @@ mongoose.connect("mongodb://localhost:27017/idcomdb", {
 //   }
 // });
 
+const store = new MongoDBStore({
+  uri: MONGO_URI,
+  collection: "session",
+  //we can add expire to specified how long an entry should last
+});
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 86400000//1000*60*60*24 => 1day in milliseconds
+    },
+    store: store,
+  })
+);
+
 app.get("/products", function (req, res) {
   //this is equivalent to select * from products;
-  Product.find(async (error, response) => {
-    if (error) {
-      console.log(`something went wrong while trying to retrieve the data: ${error}`);
-    } else {
-      //we send the data retrieved to the client
+
+  Product.find()
+    .then(response => {
       // console.log(response);
-      res.send(await response);
-
-      // we close out the connection
-      // mongoose.connection.close();
-    }
-  });
+      res.send(response);
+    })
+    .catch(err => {
+      console.log(`something went wrong while trying to retrieve the data: ${err}`);
+    });
 });
 
-app.post("/register", async (req, res) => {
-  // console.log(req.body);
-  const { fullname, email, password } = req.body;
 
-  const pwd = await bcrypt.hash(password, 10);
+app.use(authRoute);
 
-  console.log(fullname,email, pwd);
-  User.insertMany([{ name:fullname, email: email, password: pwd }], (err, response) => {
-    if (err) {
-      console.log(err);
-      res.send("error");
-    } else {
-      res.send("account created");
-    }
-  });
-});
 
-app.post("/sign", function (req, res) {
-  console.log(req.body);
-  res.send("ok");
-});
 
 app.listen(PORT, () => {
   console.log(`app is listening on http://localhost:${PORT}`);
