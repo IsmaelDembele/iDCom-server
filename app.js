@@ -46,7 +46,7 @@ const store = new MongoDBStore({
   collection: "session",
 });
 
-// app.set("trust proxy", 1);
+app.set("trust proxy", 1);
 
 app.use(
   session({
@@ -55,6 +55,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 86400000, //1000*60*60*24 => 1day in milliseconds
+      secure: true,
     },
     store: store,
   })
