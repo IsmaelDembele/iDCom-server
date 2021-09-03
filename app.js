@@ -18,7 +18,6 @@ const corsOptions = {
   origin: "http://localhost:3000",
   method: ["GET", "POST", "PUT"],
   credentials: true,
-
 };
 
 app.use(express.json());
@@ -64,15 +63,18 @@ app.use(
 app.use(authRoute);
 app.use(googleRoute);
 
-app.get("/products", function (req, res) {
+app.get("/", (req, res) => {
+  res.send("server working");
+});
 
+app.get("/products", function (req, res) {
   Product.find()
     .then(response => {
       res.send(response);
     })
     .catch(err => {
       console.log(`something went wrong while trying to retrieve the data: ${err}`);
-      res.send('error');
+      res.send("error");
     });
 });
 
@@ -81,7 +83,7 @@ app.get("/account", (req, res) => {
     return res.send("error");
   } else {
     return res.send({
-      myStatus: 'OK',
+      myStatus: "OK",
       userID: req.session.user.userID,
       name: req.session.user.name,
       email: req.session.user.email,
@@ -92,9 +94,9 @@ app.get("/account", (req, res) => {
 app.post("/delete", (req, res) => {
   console.log(req.session.user);
 
-  User.deleteOne({_id:req.session.user._id},(err,result)=>{
-    if(err){
-      return res.send('error')
+  User.deleteOne({ _id: req.session.user._id }, (err, result) => {
+    if (err) {
+      return res.send("error");
     }
     req.session.destroy(error => {
       if (error) return res.send("error");
@@ -103,7 +105,7 @@ app.post("/delete", (req, res) => {
         res.send("OK");
       }
     });
-  })
+  });
 });
 
 app.listen(PORT, () => {

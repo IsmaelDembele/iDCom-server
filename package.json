@@ -4,7 +4,6 @@
   "description": "back end of idCom project",
   "main": "app.js",
   "scripts": {
-    "start_simple": "node app.js",
     "start": "node app.js"
   },
   "author": "Ismael Dembele",
