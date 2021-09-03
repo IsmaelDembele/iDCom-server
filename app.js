@@ -15,7 +15,7 @@ const googleRoute = require("./routes/authGoogle");
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://idcom-server.herokuapp.com",
   method: ["GET", "POST", "PUT"],
   credentials: true,
 };
