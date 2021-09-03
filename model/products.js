@@ -23,8 +23,6 @@ const productSchema = new mongoose.Schema({
   description: String,
 });
 
-// creating a model
-//we use the schema to create a model
 //this will be save in a collection called "products" in PLURAL
 Product = mongoose.model("Product", productSchema);
 

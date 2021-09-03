@@ -2,33 +2,36 @@ require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
-// require {data} = "./data.js";
+// const data = require("./data.js");
 const mongoose = require("mongoose");
 const Product = require("./model/products");
 const User = require("./model/users");
 
-// const jwt = require("jsonwebtoken");
 const MongoDBStore = require("connect-mongodb-session")(session);
 
 const authRoute = require("./routes/auth");
+const googleRoute = require("./routes/authGoogle");
 
 const app = express();
 
 const corsOptions = {
   origin: "http://localhost:3000",
+  method: ["GET", "POST", "PUT"],
   credentials: true,
+
 };
 
 app.use(express.json());
 app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = "mongodb://localhost:27017/idcomdb";
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
+  useFindAndModify: false,
 });
 
 // Product.insertMany([...data], (err, res) => {
@@ -42,8 +45,9 @@ mongoose.connect(MONGO_URI, {
 const store = new MongoDBStore({
   uri: MONGO_URI,
   collection: "session",
-  //we can add expire to specified how long an entry should last
 });
+
+// app.set("trust proxy", 1);
 
 app.use(
   session({
@@ -51,29 +55,56 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 86400000//1000*60*60*24 => 1day in milliseconds
+      maxAge: 86400000, //1000*60*60*24 => 1day in milliseconds
     },
     store: store,
   })
 );
 
+app.use(authRoute);
+app.use(googleRoute);
+
 app.get("/products", function (req, res) {
-  //this is equivalent to select * from products;
 
   Product.find()
     .then(response => {
-      // console.log(response);
       res.send(response);
     })
     .catch(err => {
       console.log(`something went wrong while trying to retrieve the data: ${err}`);
+      res.send('error');
     });
 });
 
+app.get("/account", (req, res) => {
+  if (!req.session.isLoggedIn) {
+    return res.send("error");
+  } else {
+    return res.send({
+      myStatus: 'OK',
+      userID: req.session.user.userID,
+      name: req.session.user.name,
+      email: req.session.user.email,
+    });
+  }
+});
 
-app.use(authRoute);
+app.post("/delete", (req, res) => {
+  console.log(req.session.user);
 
-
+  User.deleteOne({_id:req.session.user._id},(err,result)=>{
+    if(err){
+      return res.send('error')
+    }
+    req.session.destroy(error => {
+      if (error) return res.send("error");
+      else {
+        console.log("user is logged out");
+        res.send("OK");
+      }
+    });
+  })
+});
 
 app.listen(PORT, () => {
   console.log(`app is listening on http://localhost:${PORT}`);
