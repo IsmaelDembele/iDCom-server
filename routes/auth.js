@@ -42,9 +42,9 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.get("/sign", async (req, res, next) => {
+router.get("/sign", async (req, res) => {
   console.log('req.session.isLoggedIn in get /sing',req.session.isLoggedIn);
-  res.send(req.session.isLoggedIn === true); // to send a boolean value
+  res.send(req.session); // to send a boolean value
 });
 
 router.post("/sign", async (req, res, next) => {
