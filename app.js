@@ -47,7 +47,7 @@ const store = new MongoDBStore({
   databaseName:  process.env.MONGO_DB_NAME,
 });
 
-// app.set("trust proxy", 1);
+app.set("trust proxy", 1);
 
 app.use(
   session({
