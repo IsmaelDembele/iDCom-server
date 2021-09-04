@@ -44,21 +44,23 @@ mongoose.connect(MONGO_URI, {
 const store = new MongoDBStore({
   uri: MONGO_URI,
   collection: "session",
-  databaseName:  process.env.MONGO_DB_NAME,
+  databaseName: process.env.MONGO_DB_NAME,
 });
 
-app.set("trust proxy", 1);
+if (app.get("env") === "production") {
+  app.set("trust proxy", 1); // trust first proxy
+}
 
 app.use(
   session({
-    proxy: true,
+    // proxy: true,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 86400000, //1000*60*60*24 => 1day in milliseconds
+      httpOnly: true,
       secure: true,
-      httpOnly:true,
     },
     store: store,
   })
