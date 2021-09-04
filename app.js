@@ -51,6 +51,7 @@ const store = new MongoDBStore({
 
 app.use(
   session({
+    proxy: true,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
