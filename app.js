@@ -44,9 +44,10 @@ mongoose.connect(MONGO_URI, {
 const store = new MongoDBStore({
   uri: MONGO_URI,
   collection: "session",
+  databaseName:  process.env.MONGO_DB_NAME,
 });
 
-app.set("trust proxy", 1);
+// app.set("trust proxy", 1);
 
 app.use(
   session({
