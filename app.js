@@ -69,7 +69,7 @@ app.use(
 app.use(authRoute);
 app.use(googleRoute);
 
-app.get("/", (req, res) => {
+app.get("/", (req, res,next) => {
   res.send("server working");
 });
 
