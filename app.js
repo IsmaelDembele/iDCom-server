@@ -56,7 +56,7 @@ app.use(
     // proxy: true,
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,//it was false on production
     cookie: {
       maxAge: 86400000, //1000*60*60*24 => 1day in milliseconds
       httpOnly: true,
