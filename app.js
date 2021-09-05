@@ -66,9 +66,6 @@ app.use(
   })
 );
 
-app.use(authRoute);
-app.use(googleRoute);
-
 app.get("/", (req, res,next) => {
   res.send("server working");
 });
@@ -113,6 +110,9 @@ app.post("/delete", (req, res) => {
     });
   });
 });
+
+app.use(authRoute);
+app.use(googleRoute);
 
 app.listen(PORT, () => {
   console.log(`app is listening on http://localhost:${PORT}`);
