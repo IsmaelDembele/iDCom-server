@@ -2,12 +2,14 @@ require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
-// const data = require("./data.js");
 const mongoose = require("mongoose");
 const Product = require("./model/products");
 const User = require("./model/users");
-
 const MongoDBStore = require("connect-mongodb-session")(session);
+const helmet = require("helmet");
+const compression = require("compression");
+
+// const data = require("./data.js");
 
 const authRoute = require("./routes/auth");
 const googleRoute = require("./routes/authGoogle");
@@ -15,7 +17,7 @@ const googleRoute = require("./routes/authGoogle");
 const app = express();
 
 const corsOptions = {
-  origin: ["https://idcommerce.herokuapp.com","http://localhost:3000"],
+  origin: ["https://idcommerce.herokuapp.com", "http://localhost:3000"],
   method: ["GET", "POST", "PUT"],
   credentials: true,
 };
@@ -55,18 +57,21 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,//it was false on production
+    saveUninitialized: true, //it was false on production
     proxy: true,
     cookie: {
       maxAge: 86400000, //1000*60*60*24 => 1 day in milliseconds
       httpOnly: true,
-      // secure: true,
+      secure: process.env.Production? true : false,
     },
     store: store,
   })
 );
 
-app.get("/", (req, res,next) => {
+app.use(helmet());
+app.use(compression());
+
+app.get("/", (req, res, next) => {
   res.send("server working");
 });
 
