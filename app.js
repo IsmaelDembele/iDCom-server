@@ -57,7 +57,7 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true, //it was false on production
+    saveUninitialized: false, 
     proxy: true,
     cookie: {
       maxAge: 86400000, //1000*60*60*24 => 1 day in milliseconds

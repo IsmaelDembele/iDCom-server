@@ -16,7 +16,6 @@ router.post("/googlelogin", async (req, res) => {
     });
 
     const { email_verified, name, email } = response.payload;
-    console.log({ email, name });
 
     let _user = await User.findOne({ email: email });
 
@@ -26,7 +25,6 @@ router.post("/googlelogin", async (req, res) => {
       let _userID = "";
 
       _userID = await funct.generateID();
-      console.log(_userID);
 
       _user = new User({
         name: name,
