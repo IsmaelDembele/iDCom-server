@@ -59,7 +59,7 @@ app.use(
     proxy: true,
     cookie: {
       maxAge: 86400000, //1000*60*60*24 => 1day in milliseconds
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
     },
     store: store,
