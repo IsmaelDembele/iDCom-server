@@ -15,7 +15,7 @@ const googleRoute = require("./routes/authGoogle");
 const app = express();
 
 const corsOptions = {
-  origin: "https://idcommerce.herokuapp.com",
+  origin: ["https://idcommerce.herokuapp.com","http://localhost:3000"],
   method: ["GET", "POST", "PUT"],
   credentials: true,
 };
@@ -56,11 +56,11 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,//it was false on production
-    secureProxy: true,
+    proxy: true,
     cookie: {
-      maxAge: 86400000, //1000*60*60*24 => 1day in milliseconds
+      maxAge: 86400000, //1000*60*60*24 => 1 day in milliseconds
       httpOnly: true,
-      secure: true,
+      // secure: true,
     },
     store: store,
   })
