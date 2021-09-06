@@ -56,10 +56,10 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,//it was false on production
-    proxy: true,
+    secureProxy: true,
     cookie: {
       maxAge: 86400000, //1000*60*60*24 => 1day in milliseconds
-      httpOnly: false,
+      httpOnly: true,
       secure: true,
     },
     store: store,
