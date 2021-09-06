@@ -53,10 +53,10 @@ if (app.get("env") === "production") {
 
 app.use(
   session({
-    // proxy: true,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,//it was false on production
+    proxy: true,
     cookie: {
       maxAge: 86400000, //1000*60*60*24 => 1day in milliseconds
       httpOnly: true,
