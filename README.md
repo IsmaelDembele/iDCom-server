@@ -38,6 +38,8 @@ a better error management
 
 pagination 
 
+save shoppingCart items to user's data in the back-end
+
 # To run the project
 
 npm install
