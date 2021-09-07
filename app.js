@@ -81,7 +81,7 @@ app.get("/products", function (req, res) {
       res.send(response);
     })
     .catch(err => {
-      console.log(`something went wrong while trying to retrieve the data: ${err}`);
+      console.error(`something went wrong: ${err}`);
       res.send("error");
     });
 });
@@ -100,8 +100,6 @@ app.get("/account", (req, res) => {
 });
 
 app.post("/delete", (req, res) => {
-  console.log(req.session.user);
-
   User.deleteOne({ _id: req.session.user._id }, (err, result) => {
     if (err) {
       return res.send("error");

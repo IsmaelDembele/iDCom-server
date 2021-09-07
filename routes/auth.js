@@ -64,7 +64,7 @@ router.post("/sign", async (req, res, next) => {
       req.session.user = _user;
       return req.session.save(err => {
         if (err) {
-          console.log(err);
+          console.error(err);
         }
         console.log("user is loggin");
         return res.send("OK");
