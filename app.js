@@ -17,7 +17,7 @@ const googleRoute = require("./routes/authGoogle");
 const app = express();
 
 const corsOptions = {
-  origin: ["https://idcommerce.herokuapp.com"],
+  origin: ["https://idcom.netlify.app"],
   method: ["GET", "POST", "PUT"],
   credentials: true,
 };
