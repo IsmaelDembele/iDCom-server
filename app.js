@@ -17,7 +17,7 @@ const googleRoute = require("./routes/authGoogle");
 const app = express();
 
 const corsOptions = {
-  origin: ["https://idcom.netlify.app/", "http://localhost:3000"],
+  origin: ["https://idcom.netlify.app", "http://localhost:3000"],
   method: ["GET", "POST", "PUT"],
   credentials: true,
 };
@@ -57,7 +57,7 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true, //it was false on production
+    saveUninitialized: false,
     proxy: true,
     cookie: {
       maxAge: 86400000, //1000*60*60*24 => 1 day in milliseconds
@@ -81,7 +81,7 @@ app.get("/products", function (req, res) {
       res.send(response);
     })
     .catch(err => {
-      console.log(`something went wrong while trying to retrieve the data: ${err}`);
+      console.error(`something went wrong: ${err}`);
       res.send("error");
     });
 });
@@ -100,8 +100,6 @@ app.get("/account", (req, res) => {
 });
 
 app.post("/delete", (req, res) => {
-  console.log(req.session.user);
-
   User.deleteOne({ _id: req.session.user._id }, (err, result) => {
     if (err) {
       return res.send("error");

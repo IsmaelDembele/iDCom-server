@@ -5,7 +5,6 @@ const User = require("../model/users");
 const funct = require("../Helper/functions");
 
 router.post("/register", async (req, res) => {
-  console.log(req.body);
   const { fullname, email, password } = req.body;
   let pwd = "";
   let _userID = "";
@@ -43,9 +42,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.get("/sign", async (req, res,next) => {
-  console.log('req.session.isLoggedIn in get /sing',req.session.isLoggedIn);
-  // req.request.session.isLoggedIn
-  res.send(req.session.isLoggedIn); // to send a boolean valu
+  res.send(req.session.isLoggedIn); // to send a boolean value
 });
 
 router.post("/sign", async (req, res, next) => {
@@ -67,7 +64,7 @@ router.post("/sign", async (req, res, next) => {
       req.session.user = _user;
       return req.session.save(err => {
         if (err) {
-          console.log(err);
+          console.error(err);
         }
         console.log("user is loggin");
         return res.send("OK");
