@@ -59,7 +59,7 @@ exports.postSign = async (req, res, next) => {
 
     bcrypt.compare(password, _user.password, (err, result) => {
       if (err) {
-        console.error("something went wrong with bcrypt", error);
+        console.error("something went wrong with bcrypt", err);
         return res.send(RESPONSE.FAILURE);
       } else {
         if (result) {
