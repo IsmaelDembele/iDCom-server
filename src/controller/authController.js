@@ -1,10 +1,8 @@
-const express = require("express");
-const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../model/users");
-const funct = require("../Helper/functions");
+const funct = require("../controller/Helper/functions");
 
-router.post("/register", async (req, res) => {
+exports.register = async (req, res) => {
   const { fullname, email, password } = req.body;
   let pwd = "";
   let _userID = "";
@@ -39,13 +37,13 @@ router.post("/register", async (req, res) => {
     console.error(`error while saving the user ${err}`);
     res.send("error");
   }
-});
+};
 
-router.get("/sign", async (req, res,next) => {
+exports.getSign = async (req, res, next) => {
   res.send(req.session.isLoggedIn); // to send a boolean value
-});
+};
 
-router.post("/sign", async (req, res, next) => {
+exports.setSign = async (req, res, next) => {
   const { email, password } = req.body;
 
   if (req.session.isLoggedIn) {
@@ -74,9 +72,9 @@ router.post("/sign", async (req, res, next) => {
     console.error(error);
     res.send("error");
   }
-});
+};
 
-router.post("/sign-out", (req, res, next) => {
+exports.signOut = (req, res, next) => {
   req.session.destroy(err => {
     if (err) return res.send("error");
     else {
@@ -84,6 +82,4 @@ router.post("/sign-out", (req, res, next) => {
       res.send("OK");
     }
   });
-});
-
-module.exports = router;
+};

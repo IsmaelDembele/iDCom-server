@@ -282,7 +282,7 @@ const data = [
   },
   //////////////////////////////////////
   {
-    type: "fashion",
+    type: "fashions",
     url: "/products/fashion/fashion03/fashion1.jpg",
     url2: "/products/fashion/fashion03/fashion2.jpg",
     name: "Steve Madden Men's Dress Casual Every Day Reversible Leather Belt",
@@ -294,7 +294,7 @@ const data = [
       "Hand Wash ",
   },
   {
-    type: "fashion",
+    type: "fashions",
     url: "/products/fashion/fashion04/fashion1.jpg",
     url2: "/products/fashion/fashion04/fashion2.jpg",
     name: "Levi's Men's Casual Leather Belt",
@@ -304,7 +304,7 @@ const data = [
     GENUINE LEATHER: This Levi's genuine leather belt is a wardrobe essential for any man. The soft touch leather, grommet details, and beveled edges make it a unique elevated belt. Dress up your favorite pair of jeans with this Levi's leather 1.5" wide belt. `,
   },
   {
-    type: "fashion",
+    type: "fashions",
     url: "/products/fashion/fashion05/fashion1.jpg",
     url2: "/products/fashion/fashion05/fashion2.jpg",
     name: "Calvin Klein Men's Slim Fit Suit Separates",
@@ -316,7 +316,7 @@ const data = [
     The advantage of the Calvin Klein Slim Fit Suit Separate is the ability to customize your jacket and pant size. Select your sizes and add them to the cart separately. `,
   },
   {
-    type: "fashion",
+    type: "fashions",
     url: "/products/fashion/fashion06/fashion1.jpg",
     url2: "/products/fashion/fashion06/fashion2.jpg",
     name: `Kenneth Cole REACTION Men's Techni-Cole Stretch Slim Fit Suit`,
@@ -331,7 +331,7 @@ const data = [
     Double vented`,
   },
   {
-    type: "fashion",
+    type: "fashions",
     url: "/products/fashion/fashion07/fashion1.jpg",
     url2: "/products/fashion/fashion07/fashion2.jpg",
     name: "Lacoste L.12.12 Small Tote Bag ",
@@ -342,7 +342,7 @@ const data = [
     Pockets: 1 zip`,
   },
   {
-    type: "fashion",
+    type: "fashions",
     url: "/products/fashion/fashion08/fashion1.jpg",
     url2: "/products/fashion/fashion08/fashion2.jpg",
     name: `Fossil Women's Jolie Leather Crossbody Purse Handbag`,
@@ -352,7 +352,7 @@ const data = [
     This embossed leather crossbody features 1 zipper pocket, 1 back slide pocket with magnetic snap and an adjustable and detachable crossbody strap. `,
   },
   {
-    type: "fashion",
+    type: "fashions",
     url: "/products/fashion/fashion09/fashion1.jpg",
     url2: "/products/fashion/fashion09/fashion2.jpg",
     name: "TRAVANDO Mens Slim Wallet with Money Clip AUSTIN RFID Blocking",
@@ -362,7 +362,7 @@ const data = [
     𝗙𝗨𝗡𝗖𝗧𝗜𝗢𝗡𝗔𝗟 & 𝗦𝗟𝗜𝗠 – Travando’s Wallet offers 11 card pockets The slim wallet is ideal for carrying business cards, credit and debit cards, bills etc.. The outside notch allows you to push out the cards easily. `,
   },
   {
-    type: "fashion",
+    type: "fashions",
     url: "/products/fashion/fashion10/fashion1.jpg",
     url2: "/products/fashion/fashion10/fashion2.jpg",
     name: "Front Pocket Wallet for Men - RFID Blocking Leather",
@@ -371,7 +371,7 @@ const data = [
     Slim and Compact: The thin wallet measures 4.35x3.5x0.75 inches to perfectly fit your front pocket. It is small, compact and lightweight, yet it fits a lot more than it shows. `,
   },
   {
-    type: "fashion",
+    type: "fashions",
     url: "/products/fashion/fashion01/fashion1.jpg",
     url2: "/products/fashion/fashion01/fashion2.jpg",
     name: "adidas Men's CF Lite Racer",
@@ -384,7 +384,7 @@ const data = [
       "Shaft measures approximately 6-12 inches from arch.",
   },
   {
-    type: "fashion",
+    type: "fashions",
     url: "/products/fashion/fashion02/fashion1.jpg",
     url2: "/products/fashion/fashion02/fashion2.jpg",
     name: "Clarks Men's Tilden Cap Oxford Shoe",

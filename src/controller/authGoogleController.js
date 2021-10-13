@@ -1,12 +1,10 @@
-const express = require("express");
-const router = express.Router();
 const { OAuth2Client } = require("google-auth-library"); //to verifier the token
 const User = require("../model/users");
-const funct = require("../Helper/functions");
+const funct = require("../controller/Helper/functions");
 
 const GoogleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-router.post("/googlelogin", async (req, res) => {
+exports.googleLogin = async (req, res) => {
   const { tokenId } = req.body;
 
   try {
@@ -53,5 +51,4 @@ router.post("/googlelogin", async (req, res) => {
   } catch (error) {
     return res.send("error");
   }
-});
-module.exports = router;
+};

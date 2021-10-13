@@ -1,4 +1,4 @@
-const lastuserID = require("../model/lastuserId");
+const lastuserID = require("../../model/lastuserId");
 /*
 We use a collection in the database to save the last user account number.
 Everytime, a new user is created, we access the last account number created,
@@ -19,13 +19,13 @@ exports.generateID = async () => {
 
     let num = parseInt(temp[1]) + 1;
     if (parseInt(num) < 10000000) {
-      temp[1] = (num + 10000000).toString().slice(1);// =>000000(X+1)
+      temp[1] = (num + 10000000).toString().slice(1); // =>000000(X+1)
     } else {
       temp[0] = String.fromCharCode(temp[0].charCodeAt(0) + 1); //A => B
       temp[1] = "0000001";
     }
 
-    const newID = "" + temp[0] + "-" + temp[1];//A-000000(X+1)
+    const newID = "" + temp[0] + "-" + temp[1]; //A-000000(X+1)
 
     await lastuserID.findOneAndUpdate({ index: userID[0].index }, { index: newID });
 

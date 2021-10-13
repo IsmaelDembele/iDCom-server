@@ -3,14 +3,11 @@ const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const Product = require("./model/products");
-const User = require("./model/users");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const helmet = require("helmet");
 const compression = require("compression");
 
-// const data = require("./data.js");
-
+const routes = require("./routes/routes");
 const authRoute = require("./routes/auth");
 const googleRoute = require("./routes/authGoogle");
 
@@ -34,14 +31,6 @@ mongoose.connect(MONGO_URI, {
   useCreateIndex: true,
   useFindAndModify: false,
 });
-
-// Product.insertMany([...data], (err, res) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(res);
-//   }
-// });
 
 const store = new MongoDBStore({
   uri: MONGO_URI,
@@ -71,49 +60,7 @@ app.use(
 app.use(helmet());
 app.use(compression());
 
-app.get("/", (req, res, next) => {
-  res.send("server working");
-});
-
-app.get("/products", function (req, res) {
-  Product.find()
-    .then(response => {
-      res.send(response);
-    })
-    .catch(err => {
-      console.error(`something went wrong: ${err}`);
-      res.send("error");
-    });
-});
-
-app.get("/account", (req, res) => {
-  if (!req.session.isLoggedIn) {
-    return res.send("error");
-  } else {
-    return res.send({
-      myStatus: "OK",
-      userID: req.session.user.userID,
-      name: req.session.user.name,
-      email: req.session.user.email,
-    });
-  }
-});
-
-app.post("/delete", (req, res) => {
-  User.deleteOne({ _id: req.session.user._id }, (err, result) => {
-    if (err) {
-      return res.send("error");
-    }
-    req.session.destroy(error => {
-      if (error) return res.send("error");
-      else {
-        console.log("user is logged out");
-        res.send("OK");
-      }
-    });
-  });
-});
-
+app.use(routes);
 app.use(authRoute);
 app.use(googleRoute);
 
