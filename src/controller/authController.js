@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const User = require("../model/users");
 const funct = require("../controller/Helper/functions");
+const { RESPONSE, MESSAGE } = require("./Helper/constants");
 
 exports.register = async (req, res) => {
   const { fullname, email, password } = req.body;
@@ -11,15 +12,15 @@ exports.register = async (req, res) => {
   try {
     _userID = await funct.generateID();
   } catch (error) {
-    return res.send("error");
+    return res.send(RESPONSE.FAILURE);
   }
 
   //hash the password
   try {
     pwd = await bcrypt.hash(password, 12);
   } catch (error) {
-    console.log(`error while generating the hash ${error}`);
-    return res.send("error");
+    // console.log(`error while generating the hash ${error}`);
+    return res.send(RESPONSE.FAILURE);
   }
 
   //create a new user
@@ -32,10 +33,10 @@ exports.register = async (req, res) => {
 
   try {
     _user.save();
-    return res.send("account created");
+    return res.send(MESSAGE.ACCOUNT_CREATED);
   } catch (err) {
     console.error(`error while saving the user ${err}`);
-    res.send("error");
+    res.send(RESPONSE.FAILURE);
   }
 };
 
@@ -43,12 +44,11 @@ exports.getSign = async (req, res, next) => {
   res.send(req.session.isLoggedIn); // to send a boolean value
 };
 
-exports.setSign = async (req, res, next) => {
+exports.postSign = async (req, res, next) => {
   const { email, password } = req.body;
-
   if (req.session.isLoggedIn) {
     console.log("user is already logged in");
-    return res.send("OK");
+    return res.send(RESPONSE.SUCCESS);
   }
 
   try {
@@ -57,29 +57,34 @@ exports.setSign = async (req, res, next) => {
       return res.send("error invalid email/password");
     }
 
-    if (await bcrypt.compare(password, _user.password)) {
-      req.session.isLoggedIn = true;
-      req.session.user = _user;
-      return req.session.save(err => {
-        if (err) {
-          console.error(err);
+    bcrypt.compare(password, _user.password, (err, result) => {
+      if (err) {
+        console.error("something went wront", error);
+        return res.send("error try again later");
+      } else {
+        if (result) {
+          req.session.isLoggedIn = true;
+          req.session.user = _user;
+          console.log("user is loggin");
+          return res.send(RESPONSE.SUCCESS);
+        } else {
+          console.log("password does not much");
+          return res.send("error invalid email/password");
         }
-        console.log("user is loggin");
-        return res.send("OK");
-      });
-    }
+      }
+    });
   } catch (error) {
-    console.error(error);
-    res.send("error");
+    console.error("something went wront", error);
+    return res.send("error try again later");
   }
 };
 
 exports.signOut = (req, res, next) => {
   req.session.destroy(err => {
-    if (err) return res.send("error");
+    if (err) return res.send(RESPONSE.FAILURE);
     else {
-      console.log("user is logged out");
-      res.send("OK");
+      // console.log("user is logged out");
+      res.send(RESPONSE.SUCCESS);
     }
   });
 };
