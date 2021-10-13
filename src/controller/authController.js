@@ -54,13 +54,13 @@ exports.postSign = async (req, res, next) => {
   try {
     const _user = await User.findOne({ email });
     if (!_user) {
-      return res.send("error invalid email/password");
+      return res.send(MESSAGE.LOGIN_FAILURE);
     }
 
     bcrypt.compare(password, _user.password, (err, result) => {
       if (err) {
-        console.error("something went wront", error);
-        return res.send("error try again later");
+        console.error("something went wrong with bcrypt", error);
+        return res.send(RESPONSE.FAILURE);
       } else {
         if (result) {
           req.session.isLoggedIn = true;
@@ -69,13 +69,13 @@ exports.postSign = async (req, res, next) => {
           return res.send(RESPONSE.SUCCESS);
         } else {
           console.log("password does not much");
-          return res.send("error invalid email/password");
+          return res.send(MESSAGE.LOGIN_FAILURE);
         }
       }
     });
   } catch (error) {
-    console.error("something went wront", error);
-    return res.send("error try again later");
+    console.error("something went wronG with user model", error);
+    return res.send(RESPONSE.FAILURE);
   }
 };
 

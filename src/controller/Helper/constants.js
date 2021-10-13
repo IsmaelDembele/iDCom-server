@@ -4,7 +4,7 @@ const RESPONSE = {
 };
 
 const MESSAGE = {
-  LOGIN_FAILURE: "",
+  LOGIN_FAILURE: "error invalid email/password",
   ACCOUNT_CREATED: "account created",
 };
 
