@@ -39,6 +39,7 @@ const store = new MongoDBStore({
 });
 
 if (app.get("env") === "production") {
+  console.log("trust proxy");
   app.set("trust proxy", true); // trust first proxy
 }
 
@@ -51,6 +52,7 @@ app.use(
     saveUninitialized: false,
     proxy: true,
     cookie: {
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
       maxAge: 86400000, //1000*60*60*24 => 1 day in milliseconds
       httpOnly: true,
       secure: true,
