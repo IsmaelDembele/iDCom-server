@@ -49,11 +49,11 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    proxy: true,
     cookie: {
-      proxy: true,
       maxAge: 86400000, //1000*60*60*24 => 1 day in milliseconds
       httpOnly: true,
-      secure: app.get("env") === "production" ? true : false,
+      secure: true,
     },
     store: store,
   })
