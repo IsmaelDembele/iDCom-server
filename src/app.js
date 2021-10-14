@@ -42,6 +42,8 @@ if (app.get("env") === "production") {
   app.set("trust proxy", true); // trust first proxy
 }
 
+// console.log(app.get("env"));
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -51,7 +53,7 @@ app.use(
     cookie: {
       maxAge: 86400000, //1000*60*60*24 => 1 day in milliseconds
       httpOnly: true,
-      secure: process.env.Production ? true : false,
+      secure: app.get("env") === "production" ? true : false,
     },
     store: store,
   })
