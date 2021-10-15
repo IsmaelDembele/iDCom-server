@@ -38,12 +38,11 @@ const store = new MongoDBStore({
   databaseName: process.env.MONGO_DB_NAME,
 });
 
-if (app.get("env") === "production") {
-  console.log("trust proxy");
-  app.set("trust proxy", true); // trust first proxy
-}
+// if (app.get("env") === "production") {
+//   app.set("trust proxy", true); // trust first proxy
+// }
 
-// console.log(app.get("env"));
+app.set("trust proxy", app.get("env") === "production"); // trust first proxy
 
 app.use(
   session({
@@ -55,7 +54,7 @@ app.use(
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
       maxAge: 86400000, //1000*60*60*24 => 1 day in milliseconds
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
     },
     store: store,
   })
