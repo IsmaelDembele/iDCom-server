@@ -38,10 +38,6 @@ const store = new MongoDBStore({
   databaseName: process.env.MONGO_DB_NAME,
 });
 
-// if (app.get("env") === "production") {
-//   app.set("trust proxy", true); // trust first proxy
-// }
-
 app.set("trust proxy", app.get("env") === "production"); // trust first proxy
 
 app.use(
