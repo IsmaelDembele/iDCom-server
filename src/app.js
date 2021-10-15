@@ -14,7 +14,7 @@ const googleRoute = require("./routes/authGoogle");
 const app = express();
 
 const corsOptions = {
-  origin: ["https://idcom.netlify.app"],
+  origin: [process.env.CORS_ORIGIN],
   method: ["GET", "POST", "PUT"],
   credentials: true,
 };
