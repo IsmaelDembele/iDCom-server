@@ -74,7 +74,7 @@ exports.postSign = async (req, res, next) => {
       }
     });
   } catch (error) {
-    console.error("something went wronG with user model", error);
+    console.error("something went wrong with user model", error);
     return res.send(RESPONSE.FAILURE);
   }
 };
