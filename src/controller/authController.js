@@ -20,7 +20,7 @@ exports.register = async (req, res) => {
     return res.send(RESPONSE.FAILURE);
   }
 
-  if (_user === RESPONSE.FAILURE) {
+  if (_userID === RESPONSE.FAILURE) {
     res.send(RESPONSE.FAILURE);
   }
 
@@ -92,8 +92,9 @@ exports.postSign = async (req, res, next) => {
 
 exports.signOut = (req, res, next) => {
   req.session.destroy(err => {
-    if (err) return res.send(RESPONSE.FAILURE);
-    else {
+    if (err) {
+      return res.send(RESPONSE.FAILURE);
+    } else {
       res.send(RESPONSE.SUCCESS);
     }
   });
