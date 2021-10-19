@@ -1,4 +1,5 @@
 const lastuserID = require("../../model/lastuserId");
+const { RESPONSE } = require("./constants");
 
 const CONSTANT = 10000000;
 
@@ -11,7 +12,12 @@ the new user account number.
 exports.generateID = async () => {
   let userID = [];
 
-  userID = await lastuserID.find((err, res) => {});
+  try {
+    userID = await lastuserID.find();
+  } catch (error) {
+    console.log("Can't access last user id created".error);
+    return RESPONSE.FAILURE;
+  }
 
   if (userID.length === 0) {
     //this is the first user created

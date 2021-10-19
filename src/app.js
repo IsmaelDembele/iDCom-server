@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const helmet = require("helmet");
 const compression = require("compression");
-
+const csrf = require("csurf");
 const routes = require("./routes/routes");
 const authRoute = require("./routes/auth");
 const googleRoute = require("./routes/authGoogle");
@@ -19,6 +19,8 @@ const corsOptions = {
   credentials: true,
 };
 
+const csrfProtection = csrf();
+
 app.use(express.json());
 app.use(cors(corsOptions));
 
@@ -28,8 +30,6 @@ const MONGO_URI = process.env.MONGO_URI;
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  // useCreateIndex: true,
-  // useFindAndModify: false,
 });
 
 const store = new MongoDBStore({
@@ -58,6 +58,11 @@ app.use(
 
 app.use(helmet());
 app.use(compression());
+app.use(csrfProtection);
+
+app.get("/csrf", (req, res) => {
+  res.send(req.csrfToken());
+});
 
 app.use(routes);
 app.use(authRoute);

@@ -12,14 +12,19 @@ exports.register = async (req, res) => {
   try {
     _userID = await funct.generateID();
   } catch (error) {
+    console.log(`error id generation ${error}`);
     return res.send(RESPONSE.FAILURE);
+  }
+
+  if (_user === RESPONSE.FAILURE) {
+    res.send(RESPONSE.FAILURE);
   }
 
   //hash the password
   try {
     pwd = await bcrypt.hash(password, 12);
   } catch (error) {
-    // console.log(`error while generating the hash ${error}`);
+    console.log(`error while generating the hash ${error}`);
     return res.send(RESPONSE.FAILURE);
   }
 
@@ -34,20 +39,23 @@ exports.register = async (req, res) => {
   try {
     _user.save();
     return res.send(MESSAGE.ACCOUNT_CREATED);
-  } catch (err) {
-    console.error(`error while saving the user ${err}`);
+  } catch (error) {
+    console.error(`error while saving the user ${error}`);
     res.send(RESPONSE.FAILURE);
   }
 };
 
 exports.getSign = async (req, res, next) => {
-  res.send(req.session.isLoggedIn); // to send a boolean value
+  if (req.session.isLoggedIn) {
+    res.send(RESPONSE.SUCCESS);
+  } else {
+    res.send(RESPONSE.FAILURE);
+  }
 };
 
 exports.postSign = async (req, res, next) => {
   const { email, password } = req.body;
   if (req.session.isLoggedIn) {
-    console.log("user is already logged in");
     return res.send(RESPONSE.SUCCESS);
   }
 
@@ -65,7 +73,6 @@ exports.postSign = async (req, res, next) => {
         if (result) {
           req.session.isLoggedIn = true;
           req.session.user = _user;
-          console.log("user is loggin");
           return res.send(RESPONSE.SUCCESS);
         } else {
           console.log("password does not much");
@@ -83,7 +90,6 @@ exports.signOut = (req, res, next) => {
   req.session.destroy(err => {
     if (err) return res.send(RESPONSE.FAILURE);
     else {
-      // console.log("user is logged out");
       res.send(RESPONSE.SUCCESS);
     }
   });
