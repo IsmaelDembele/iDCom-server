@@ -15,13 +15,12 @@ exports.register = async (req, res) => {
   //generating the Account UserID
   try {
     _userID = await funct.generateID();
+    if (_userID === RESPONSE.FAILURE) {
+      return res.send(RESPONSE.FAILURE);
+    }
   } catch (error) {
     console.log(`error id generation ${error}`);
     return res.send(RESPONSE.FAILURE);
-  }
-
-  if (_userID === RESPONSE.FAILURE) {
-    res.send(RESPONSE.FAILURE);
   }
 
   //hash the password
