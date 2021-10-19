@@ -3,6 +3,10 @@ const User = require("../model/users");
 const funct = require("../controller/Helper/functions");
 const { RESPONSE, MESSAGE } = require("./Helper/constants");
 
+exports.getCsrf = (req, res) => {
+  res.send(req.csrfToken());
+};
+
 exports.register = async (req, res) => {
   const { fullname, email, password } = req.body;
   let pwd = "";

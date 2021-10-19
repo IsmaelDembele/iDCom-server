@@ -60,10 +60,6 @@ app.use(helmet());
 app.use(compression());
 app.use(csrfProtection);
 
-app.get("/csrf", (req, res) => {
-  res.send(req.csrfToken());
-});
-
 app.use(routes);
 app.use(authRoute);
 app.use(googleRoute);

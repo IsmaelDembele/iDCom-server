@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const authController = require("../controller/authController");
 
+router.get("/csrf", authController.getCsrf);
+
 router.post("/register", authController.register);
 
 router.get("/sign", authController.getSign);
