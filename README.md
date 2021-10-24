@@ -17,15 +17,17 @@ npm install
 npm start
 
 # Missing variables
+
     CORS_ORIGIN: which is https://idcom.netlify.app/ in my case and localhost:3000 in development mode
     SESSION_SECRET: create your random string
     MONGO_URI: you can get on MongoDB atlas
     MONGO_DB_NAME: your database name
     GOOGLE_CLIENT_ID: that you can get from the Google cloud platform
     GOOGLE_CLIENT_SECRET: that you can get from the Google cloud platform
+    GOOGLE_REFRESH_TOKEN: from google cloud plateform
+    GOOGLE_EMAIL: The email that you have gave access to in your google cloud plateform
 
-Once you create your database, you can use the data.js file to populate your data database.
-
+Once you create your database, you can use the src/model/data.js file to populate your data database.
 
 # implemented functions
 
@@ -41,12 +43,13 @@ Register session to MongoDB database
 
 use Helmet to set header security options
 
-CSRF attacks protections 
+CSRF attacks protections
 
 cors to restrict access to the server
 
 Compression of javascript code
 
+email notification
 
 # To-do
 
@@ -61,7 +64,6 @@ in the future, plan to add:
 
     -- delete a user
 
-    email notification
 
     reset passport with email
 
