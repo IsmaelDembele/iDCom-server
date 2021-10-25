@@ -1,6 +1,7 @@
 const { OAuth2Client } = require("google-auth-library"); //to verifier the token
 const User = require("../model/users");
 const funct = require("../controller/Helper/functions");
+const sendMail = require("./Helper/email_fn");
 
 const GoogleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -31,6 +32,7 @@ exports.googleLogin = async (req, res) => {
       });
       try {
         _user.save();
+        sendMail(name, email);
       } catch (err) {
         console.error(`error while saving the user ${err}`);
         res.send("error");
@@ -45,7 +47,6 @@ exports.googleLogin = async (req, res) => {
         console.log(err);
         res.send("error");
       }
-      console.log("user is loggin");
       return res.send("OK");
     });
   } catch (error) {
