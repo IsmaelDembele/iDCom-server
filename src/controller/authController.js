@@ -1,8 +1,9 @@
 const bcrypt = require("bcryptjs");
 const User = require("../model/users");
 const funct = require("../controller/Helper/functions");
-const sendMail = require("./Helper/email_fn");
+const { createAccountMail } = require("./Helper/email_fn");
 const { RESPONSE, MESSAGE } = require("./Helper/constants");
+const jwt = require("jsonwebtoken");
 
 exports.getCsrf = (req, res) => {
   res.send(req.csrfToken());
@@ -38,13 +39,14 @@ exports.register = async (req, res) => {
     email: email,
     password: pwd,
     userID: _userID,
+    emailVerified: false,
   });
 
   try {
     _user.save();
 
     //sending the confirmation email
-    sendMail(fullname, email);
+    createAccountMail(fullname, email);
 
     return res.send(MESSAGE.ACCOUNT_CREATED);
   } catch (error) {
@@ -91,6 +93,41 @@ exports.postSign = async (req, res, next) => {
   } catch (error) {
     console.error("something went wrong with user model", error);
     return res.send(RESPONSE.FAILURE);
+  }
+};
+
+exports.postVerifyEmail = async (req, res, next) => {
+  const { token } = req.body;
+  let decoded = "";
+
+  try {
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    console.error("jwt fail to verify", error);
+    return res.send(MESSAGE.EXPIRED_TOKEN);
+  }
+
+  const { name, recipient, exp } = decoded;
+
+  // const exp = decoded.exp;
+  const current = Math.floor(Date.now() / 1000);
+
+  if (exp < current) {
+    console.log("token expired");
+    return res.send(MESSAGE.EXPIRED_TOKEN);
+
+    //remove the email from the database and let the user now
+  } else {
+    //get emailVerified field to true
+    User.findOneAndUpdate({ email: recipient }, { emailVerified: true }, (error, result) => {
+      if (error) {
+        console.error("Cannot updated the user emailVerified field", error);
+        res.send("error can't update the user");
+      } else {
+        console.log(`${name} emailVerified field updated!!!`, result);
+        return res.send(RESPONSE.SUCCESS);
+      }
+    });
   }
 };
 

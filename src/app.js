@@ -15,13 +15,15 @@ const app = express();
 
 const corsOptions = {
   origin: [process.env.CORS_ORIGIN],
-  method: ["GET", "POST", "PUT"],
+  method: ["GET", "POST"],
   credentials: true,
 };
 
 const csrfProtection = csrf();
 
 app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
+
 app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 5000;

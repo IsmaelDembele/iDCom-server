@@ -12,4 +12,6 @@ router.post("/sign", authController.postSign);
 
 router.post("/sign-out", authController.signOut);
 
+router.post("/verifyemail", authController.postVerifyEmail);
+
 module.exports = router;
