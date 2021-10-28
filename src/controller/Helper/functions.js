@@ -41,3 +41,15 @@ exports.generateID = async () => {
     return newID;
   }
 };
+
+exports.validateEmail = email => {
+  return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email);
+};
+
+exports.validateFullname = fullname => {
+  return fullname.length >= 4;
+};
+
+exports.validatePassword = password => {
+  return password.length >= 8;
+};

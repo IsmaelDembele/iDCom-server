@@ -1,6 +1,11 @@
 const bcrypt = require("bcryptjs");
 const User = require("../model/users");
-const funct = require("../controller/Helper/functions");
+const {
+  validateEmail,
+  validateFullname,
+  validatePassword,
+  generateID
+} = require("../controller/Helper/functions");
 const { createAccountMail } = require("./Helper/email_fn");
 const { RESPONSE, MESSAGE } = require("./Helper/constants");
 const jwt = require("jsonwebtoken");
@@ -11,12 +16,17 @@ exports.getCsrf = (req, res) => {
 
 exports.register = async (req, res) => {
   const { fullname, email, password } = req.body;
+
+  if (!validateEmail(email) || !validateFullname(fullname) || !validatePassword(password)) {
+    return res.send(RESPONSE.FAILURE);
+  }
+
   let pwd = "";
   let _userID = "";
 
   //generating the Account UserID
   try {
-    _userID = await funct.generateID();
+    _userID = await generateID();
     if (_userID === RESPONSE.FAILURE) {
       return res.send(RESPONSE.FAILURE);
     }
@@ -67,6 +77,10 @@ exports.postSign = async (req, res, next) => {
   const { email, password } = req.body;
   if (req.session.isLoggedIn) {
     return res.send(RESPONSE.SUCCESS);
+  }
+
+  if (!validateEmail(email) || !validatePassword(password)) {
+    return res.send(RESPONSE.FAILURE);
   }
 
   try {
