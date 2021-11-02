@@ -1,7 +1,9 @@
 const { OAuth2Client } = require("google-auth-library"); //to verifier the token
 const User = require("../model/users");
-const funct = require("../controller/Helper/functions");
+const { generateID } = require("../controller/Helper/functions");
 const { createAccountMail } = require("./Helper/email_fn");
+const { MESSAGE } = require("./Helper/constants");
+const crypto = require("crypto");
 
 const GoogleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -23,17 +25,17 @@ exports.googleLogin = async (req, res) => {
       //generating the Account ID
       let _userID = "";
 
-      _userID = await funct.generateID();
+      _userID = await generateID();
 
       _user = new User({
         name: name,
         email: email,
+        password: crypto.randomBytes(60).toString("hex"),
         userID: _userID,
-        emailVerified: false,
+        emailVerified: email_verified,
       });
       try {
         _user.save();
-        createAccountMail(name, email);
       } catch (err) {
         console.error(`error while saving the user ${err}`);
         res.send("error");

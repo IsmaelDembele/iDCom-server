@@ -1,3 +1,4 @@
+"use strict";
 require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
@@ -10,6 +11,7 @@ const csrf = require("csurf");
 const routes = require("./routes/routes");
 const authRoute = require("./routes/auth");
 const googleRoute = require("./routes/authGoogle");
+
 
 const app = express();
 

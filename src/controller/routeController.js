@@ -37,7 +37,6 @@ exports.delete = (req, res) => {
     req.session.destroy(error => {
       if (error) return res.send("error");
       else {
-        console.log("user is logged out");
         res.send("OK");
       }
     });

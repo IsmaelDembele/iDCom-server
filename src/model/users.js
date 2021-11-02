@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     //we don't save any password when we create an account with google
   },
   emailVerified: {
-    type: String,
+    type: Boolean,
     required: [true, "email verification field missing"],
   },
 });

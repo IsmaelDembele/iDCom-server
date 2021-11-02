@@ -4,9 +4,9 @@ const {
   validateEmail,
   validateFullname,
   validatePassword,
-  generateID
+  generateID,
 } = require("../controller/Helper/functions");
-const { createAccountMail } = require("./Helper/email_fn");
+const { createAccountMail, resetPasswordMail, confirmChangePwdMail } = require("./Helper/email_fn");
 const { RESPONSE, MESSAGE } = require("./Helper/constants");
 const jwt = require("jsonwebtoken");
 
@@ -53,15 +53,19 @@ exports.register = async (req, res) => {
   });
 
   try {
-    _user.save();
-
-    //sending the confirmation email
-    createAccountMail(fullname, email);
-
-    return res.send(MESSAGE.ACCOUNT_CREATED);
+    await _user.save();
   } catch (error) {
     console.error(`error while saving the user ${error}`);
-    res.send(RESPONSE.FAILURE);
+    return res.send(MESSAGE.EMAIL_EXIST);
+  }
+
+  try {
+    //sending the confirmation email
+    createAccountMail(fullname, email);
+    return res.send(MESSAGE.ACCOUNT_CREATED);
+  } catch (error) {
+    console.log("coult not send the email", error);
+    return res.send(RESPONSE.FAILURE);
   }
 };
 
@@ -87,6 +91,15 @@ exports.postSign = async (req, res, next) => {
     const _user = await User.findOne({ email });
     if (!_user) {
       return res.send(MESSAGE.LOGIN_FAILURE);
+    }
+
+    // console.log(_user);
+
+    if (!_user.emailVerified) {
+      console.log("email is not verify");
+      //sending the confirmation email
+      createAccountMail(_user.name, email);
+      return res.send(MESSAGE.VERIFY_EMAIL);
     }
 
     bcrypt.compare(password, _user.password, (err, result) => {
@@ -138,7 +151,7 @@ exports.postVerifyEmail = async (req, res, next) => {
         console.error("Cannot updated the user emailVerified field", error);
         res.send("error can't update the user");
       } else {
-        console.log(`${name} emailVerified field updated!!!`, result);
+        console.log(`${name} emailVerified field updated!!!`);
         return res.send(RESPONSE.SUCCESS);
       }
     });
@@ -153,4 +166,93 @@ exports.signOut = (req, res, next) => {
       res.send(RESPONSE.SUCCESS);
     }
   });
+};
+
+exports.postRequestToken = async (req, res, next) => {
+  const { email } = req.body;
+
+  let _user = null;
+
+  try {
+    //check if the email exist in the database
+    _user = await User.findOne({ email });
+    // res.send(exist);
+  } catch (error) {
+    console.log(error);
+    return res.send(false);
+  }
+
+  const { name } = _user;
+  // send a password reset token to the user
+  try {
+    resetPasswordMail(name, email);
+  } catch (error) {
+    console.log(error);
+    return res.send("Could not send the reset email", false);
+  }
+  res.send(_user !== null);
+};
+
+exports.postChangePassword = async (req, res, next) => {
+  const { token, pwd } = req.body;
+  const error = [];
+
+  let decoded = "";
+  let hash = "";
+
+  try {
+    //verifier the token
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (err) {
+    error.push({
+      field: "jwt",
+      message: `jwt fail to verify ${err}`,
+    });
+    //it is ok to send the wrong error message if the someone tempered with the token
+    res.send(MESSAGE.EXPIRED_TOKEN);
+  }
+
+  // console.log(decoded);
+
+  const { name, recipient } = decoded;
+
+  try {
+    //hash the password
+    hash = await bcrypt.hash(pwd, 12);
+  } catch (err) {
+    error.push({
+      field: "hash",
+      message: `error while generating the hash ${err}`,
+    });
+  }
+
+  //if there is no error
+  if (error.length === 0) {
+    User.findOneAndUpdate({ email: recipient }, { password: hash }, (err, result) => {
+      if (err) {
+        console.log();
+        error.push({
+          field: "Update password",
+          message: `could not update the password ${err}`,
+        });
+        res.send(RESPONSE.FAILURE);
+      }
+    });
+    try {
+      confirmChangePwdMail(name, recipient);
+    } catch (err) {
+      error.push({
+        field: "email",
+        message: `Could not send the password changed confirmation email: ${err}`,
+      });
+    }
+  }
+
+  if (error.length > 0) {
+    console.log(error);
+    res.send(RESPONSE.FAILURE);
+  } else {
+    console.log("Password changed");
+    res.send(RESPONSE.SUCCESS);
+  }
 };
